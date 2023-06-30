@@ -5,6 +5,7 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 
 app.use(cors());
+app.use(express.json());
 
 // Create transporter
 const transporter = nodemailer.createTransport({
@@ -20,8 +21,11 @@ transporter.verify(function (error, success) {
   if (error) {
     console.log(error);
   } else {
-    console.log("Server is ready to take our messages");
+    console.log("Server is ready");
   }
+});
+app.get("/", (req, res) => {
+  res.status(200).send("My portfolio-contact-api");
 });
 app.post("/send", async (req, res, next) => {
   const { name, email, message } = req.body;
@@ -48,10 +52,14 @@ app.post("/send", async (req, res, next) => {
     await transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         return res.status(500).json({ error: err.message });
+      } else {
+        return res.status(200).json({ message: "Email sent" });
       }
-      return res.status(200).json({ message: "Email sent" });
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
+});
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Started`);
 });
