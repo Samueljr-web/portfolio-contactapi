@@ -10,11 +10,13 @@ app.use(express.json());
 // Create transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
-  port: 587,
+  // port: 587,
   auth: {
     user: process.env.AUTH_EMAIl,
     pass: process.env.AUTH_PASSWORD,
   },
+  port: 465,
+  host: "smtp.gmail.com"
 });
 // verify connection configuration
 transporter.verify(function (error, success) {
