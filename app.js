@@ -37,15 +37,14 @@ app.post("/send", async (req, res, next) => {
   const mailOptions = {
     from: name,
     to: "samueladeyemi2006@gmail.com",
-    replyTo: email,
     subject: "New message - portfolio",
     text: message,
     html: `
-			<h1>New message from ${email}</h1>
-			<h2>Name:</h2>
-			<h3>${name}</h3>
-			<h2>Message:</h2>
-			<h3>${message}</h3>
+			<h2>New message from ${name}</h2>
+      <div>
+			<h3>Message:</h3>
+			<h4>${message}</h4>
+      </div>
 		`,
   };
   try {
