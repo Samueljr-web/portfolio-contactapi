@@ -9,14 +9,14 @@ app.use(express.json());
 
 // Create transporter
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  // service: "gmail",
   // port: 587,
+  host: "smtp.gmail.com",
+  port: 465,
   auth: {
     user: process.env.AUTH_EMAIl,
     pass: process.env.AUTH_PASSWORD,
   },
-  port: 465,
-  host: "smtp.gmail.com"
 });
 // verify connection configuration
 transporter.verify(function (error, success) {
